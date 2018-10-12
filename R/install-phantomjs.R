@@ -37,13 +37,13 @@ install_phantomjs <- function(version = '2.1.1',
   on.exit(setwd(owd), add = TRUE)
   if (is_windows()) {
     zipfile <- sprintf('phantomjs-%s-windows.zip', version)
-    download(paste0(baseURL, zipfile), zipfile, mode = 'wb')
+    download(paste0(baseURL, zipfile), zipfile, mode = 'wb', method="libcurl")
     utils::unzip(zipfile)
     zipdir <- sub('.zip$', '', zipfile)
     exec <- file.path(zipdir, 'bin', 'phantomjs.exe')
   } else if (is_osx()) {
     zipfile <- sprintf('phantomjs-%s-macosx.zip', version)
-    download(paste0(baseURL, zipfile), zipfile, mode = 'wb')
+    download(paste0(baseURL, zipfile), zipfile, mode = 'wb', method="libcurl")
     utils::unzip(zipfile)
     zipdir <- sub('.zip$', '', zipfile)
     exec <- file.path(zipdir, 'bin', 'phantomjs')
@@ -53,7 +53,7 @@ install_phantomjs <- function(version = '2.1.1',
       'phantomjs-%s-linux-%s.tar.bz2', version,
       if (grepl('64', Sys.info()[['machine']])) 'x86_64' else 'i686'
     )
-    download(paste0(baseURL, zipfile), zipfile, mode = 'wb')
+    download(paste0(baseURL, zipfile), zipfile, mode = 'wb', method="libcurl")
     utils::untar(zipfile)
     zipdir <- sub('.tar.bz2$', '', zipfile)
     exec <- file.path(zipdir, 'bin', 'phantomjs')
